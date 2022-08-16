@@ -1,6 +1,4 @@
-
-{
-      "products": [
+ [
       {
           id: 1,
           category: 'headphones',
@@ -108,5 +106,5 @@
           ],
       },
   ];
-}
+
   
