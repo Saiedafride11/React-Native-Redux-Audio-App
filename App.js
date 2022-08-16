@@ -1,20 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
+import FlashMessage from "react-native-flash-message";
+import { Provider } from 'react-redux';
+import store from './store';
+import Text from './src/components/text/text';
+import Navigation from './navigation/index';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontLoaded] = useFonts({
+    'Manrope-Medium': require('./assets/fonts/Manrope-Medium.ttf'),
+    'Manrope-Bold': require('./assets/fonts/Manrope-Bold.ttf'),
+    'Manrope-Regular': require('./assets/fonts/Manrope-Regular.ttf'),
+  });
+  if (!fontLoaded) {
+    return null;
+  } else{
+    return (
+        <Provider store={store}>
+          <SafeAreaProvider>
+            <Navigation/>
+            {/* <Text preset="h2" style={{marginTop: 80}}>
+              Welcome
+            </Text> */}
+            <StatusBar/>
+            <FlashMessage
+              position="top"
+              floating
+              statusBarHeight={30}
+            />
+          </SafeAreaProvider>
+        </Provider>
+    );
+  }
+  }
+  
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
 });
