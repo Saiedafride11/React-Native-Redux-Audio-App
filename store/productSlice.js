@@ -8,7 +8,7 @@ const initialState = {
   }
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async() => {
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const res = await fetch('https://github.com/Saiedafride11/React-Native-Redux-Audio-App/blob/main/data/LodeGithubAPI.js');
       return res.json()
 })
 
