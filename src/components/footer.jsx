@@ -7,8 +7,8 @@ export default function Footer() {
     return (
         <View style={{padding: spacing[5], alignItems: 'center'}}>
             <Image
-                style={{alignSelf: 'center'}}
-                source={require('../assets/images/man-with-hp.png')}
+                style={{alignSelf: 'center', height: 150, width: 150}}
+                source={require('../../assets/images/man-with-hp.png')}
             />
 
             <View style={{paddingVertical: spacing[5]}}>

@@ -4,19 +4,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../src/screens/home';
 import Headphones from '../src/screens/headphones';
 import Details from '../src/screens/product-details';
-import Earphones from '../src/screens/earPhones';
+import Earphones from '../src/screens/earphones';
 import Speakers from '../src/screens/speakers';
 import Cart from '../src/screens/cart';
 import Checkout from '../src/screens/checkout';
 import { colors } from '../src/theme';
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { selectCartLength } from '../store/cartSlice';
+import {useSelector} from 'react-redux';
 
 
 const AppTheme = {
       ...DefaultTheme,
       colors: {
         ...DefaultTheme.colors,
-        background: "red"
+        background: "white"
       }
 }
 
@@ -85,6 +87,7 @@ const TabBarIcon = ({fontFamily, name, color}) => {
 }
 
 export default function Navigation() {
+      const cartLength = useSelector(selectCartLength);
       return (
             <NavigationContainer theme={AppTheme}>
                   <Tab.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, tabBarActiveTintColor: colors.primary}}>
@@ -92,7 +95,21 @@ export default function Navigation() {
                         <Tab.Screen options={{ title: "Headphones", tabBarIcon: ( {color} ) => (<TabBarIcon fontFamily={"MaterialCommunityIcons"} name="headphones" color={color}/>)}} name="HeadphonesTab" component={HeadphoneStackScreens} />
                         <Tab.Screen options={{ title: "Earphones", tabBarIcon: ( {color} ) => (<TabBarIcon fontFamily={"SimpleLineIcons"} name="earphones-alt" color={color}/>)}} name="EarphonesTab" component={EarphonesStackScreens} />
                         <Tab.Screen options={{ title: "Speakers", tabBarIcon: ( {color} ) => (<TabBarIcon fontFamily={"MaterialCommunityIcons"} name="speaker" color={color}/>)}} name="SpeakersTab" component={SpeakersStackScreens} />
-                        <Tab.Screen options={{ title: "Cart", tabBarIcon: ( {color} ) => (<TabBarIcon fontFamily={"Ionicons"} name="cart-outline" color={color}/>)}} name="CartTab" component={CartStackScreens} />
+                        <Tab.Screen
+                              options={{
+                                    title: "Cart",
+                                    tabBarIcon: ( {color} ) => (
+                                          <TabBarIcon
+                                                fontFamily={"Ionicons"}
+                                                name="cart-outline"
+                                                color={color}
+                                          />
+                                    ),
+                                    tabBarBadge: cartLength > 0 ? cartLength : null,
+                              }}
+                                    name="CartTab"
+                                    component={CartStackScreens}
+                         />
                   </Tab.Navigator>
             </NavigationContainer>
       );

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {colors, spacing} from '../theme';
+import { colors, spacing } from '../theme';
 import Text from './text/text';
 
 export default function CategoryTitle({title}) {

@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { PRODUCT_IMAGE_MAP } from '../data/product-image-map';
+import { LocalDATA, PRODUCT_IMAGE_MAP } from '../data/product-image-map';
 
 const initialState = {
-      products: [],
+      products: LocalDATA,
       status: 'idle',
       error: null
   }
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async() => {
-      const res = await fetch('https://github.com/Saiedafride11/React-Native-Redux-Audio-App/blob/main/data/LodeGithubAPI.js');
+      const res = await fetch('http://103.28.121.57/api/products');
       return res.json()
 })
 
@@ -36,5 +36,10 @@ export const productSlice = createSlice({
 
 // export const { increment, decrement, incrementByAmount } = counterSlice.actions
 export const selectStatus = state => state.products.status;
+export const selectFeaturedProducts = state => state.products.products.filter( item => item.is_featured );
+export const selectHeadphones = state => state.products.products.filter( item => item.category === 'headphones' );
+export const selectEarphones = state => state.products.products.filter( item => item.category === 'earphones' );
+export const selectSpeakers = state => state.products.products.filter( item => item.category === 'speakers' );
+export const selectProductsById = (state, id) => state.products.products.find( product => product.id === id );
 
 export default productSlice.reducer

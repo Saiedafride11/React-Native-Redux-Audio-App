@@ -8,6 +8,10 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Text from './src/components/text/text';
 import Navigation from './navigation/index';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistStore} from 'redux-persist';
+
+let persistor = persistStore(store);
 
 
 export default function App() {
@@ -21,18 +25,17 @@ export default function App() {
   } else{
     return (
         <Provider store={store}>
-          <SafeAreaProvider>
-            <Navigation/>
-            {/* <Text preset="h2" style={{marginTop: 80}}>
-              Welcome
-            </Text> */}
-            <StatusBar/>
-            <FlashMessage
-              position="top"
-              floating
-              statusBarHeight={30}
-            />
-          </SafeAreaProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <SafeAreaProvider>
+              <Navigation/>
+              <StatusBar/>
+              <FlashMessage
+                position="top"
+                floating
+                statusBarHeight={30}
+              />
+            </SafeAreaProvider>
+          </PersistGate>
         </Provider>
     );
   }
